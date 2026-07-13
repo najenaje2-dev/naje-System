@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منظومة صبحي ناجي لشؤون الطلبة والامتحانات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1e293b;
+            --nav-bg: #111827;
+            --accent-blue: #3b82f6;
+            --danger-red: #ef4444;
+            --light-bg: #f8fafc;
+            --border-color: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: var(--light-bg); color: #334155; min-height: 100vh; }
+
+        /* ==================== واجهات الدخول والإنشاء الجمالية ==================== */
+        .auth-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: #f1f5f9;
+        }
+
+        .auth-card {
+            background: white;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .auth-logo-box {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
+        }
+
+        .auth-logo-box i {
+            font-size: 36px;
+            color: #3b82f6;
+            margin-bottom: 8px;
+        }
+
+        .auth-logo-box h2 {
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-logo-box p {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .auth-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        .auth-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .auth-form-group label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #475569;
+        }
+
+        .auth-form-group input, .auth-form-group select {
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+            background-color: #f8fafc;
+            transition: 0.2s;
+        }
+
+        .auth-form-group input:focus, .auth-form-group select:focus {
+            border-color: var(--accent-blue);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .btn-auth-submit {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-auth-submit:hover {
+            background: #2563eb;
+        }
+
+        .btn-toggle-auth {
+            background: white;
+            border: 1px solid #cbd5e1;
+            color: #64748b;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 12px;
+            transition: 0.2s;
+        }
+
+        .btn-toggle-auth:hover {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .auth-divider {
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            margin: 15px 0 5px 0;
+        }
+
+
+        /* ==================== شاشات المنظومة (بعد الدخول) ==================== */
+        .header-system {
+            background: var(--nav-bg);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .main-nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #1f2937;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: 900;
+            color: #3b82f6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .menu-item {
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            color: white;
+            background: #1f2937;
+        }
+
+        .btn-exit {
+            background: #1f2937;
+            border: 1px solid #374151;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .btn-exit i { font-size: 16px; margin-bottom: 2px; color: var(--danger-red); }
+
+        .sub-nav-row {
+            background: #1f2937;
+            padding: 8px 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid-dashboard-controls {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 900px) {
+            .grid-dashboard-controls { grid-template-columns: 1fr; }
+        }
+
+        .system-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #64748b;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inputs-flex {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .form-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .form-box label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .form-box select, .form-box input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            background: white;
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        .switch-btn {
+            background: #e2e8f0;
+            border: 1px solid #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background-color: #cbd5e1; transition: .3s; border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 18px; width: 18px;
+            left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent-blue); }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .btn-report {
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+            background: white;
+        }
+        .btn-report:hover { transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        .color-green { border-color: #10b981; color: #047857; background: #ecfdf5; }
+        .color-blue { border-color: #3b82f6; color: #1d4ed8; background: #eff6ff; }
+        .color-purple { border-color: #a855f7; color: #6b21a8; background: #faf5ff; }
+        .color-red { border-color: #ef4444; color: #b91c1c; background: #fef2f2; }
+        .color-yellow { border-color: #eab308; color: #a16207; background: #fef9c3; }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        .data-table th {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .num-input {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn-save-system {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+
+        .view-section { display: none; }
+        .view-section.active-view { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== أولاً: واجهة بوابة الدخول والتسجيل المستقلة والكاملة ==================== -->
+    <div id="auth-portal" class="auth-wrapper">
+        
+        <!-- 1. شاشة تسجيل الدخول (Login Page) -->
+        <div class="auth-card" id="login-card">
+            <div class="auth-logo-box">
+                <i class="fas fa-graduation-cap"></i>
+                <h2>منظومة صبحي ناجي</h2>
+                <p>Student Affairs and Examinations System</p>
+            </div>
+            <div class="auth-title">تسجيل الدخول</div>
+            <form onsubmit="handleLogin(event)">
+                <div class="auth-form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="login-username" required placeholder="أدخل اسم المستخدم">
+                </div>
+                <div class="auth-form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="login-password" required placeholder="••••••">
+                </div>
+                <button type="submit" class="btn-auth-submit">تسجيل دخول</button>
+            </form>
+            <div class="auth-divider">إذا لم يكن لديك حساب،</div>
+            <button class="btn-toggle-auth" onclick="toggleAuthScreens('register')">إنشاء حساب جديد</button>
+        </div>
+
+        <!-- 2. شاشة إنشاء حساب جديد (Registration Page) -->
+        <div class="auth-card" id="register-card" style="display: none;">
+            <div class="auth-logo-box">
+                <i class="fas fa-school"></i>
+                <h2>منظومة صبحي ناجي</h2>
+                <p>إنشاء حساب مؤسسة جديد</p>
+            </div>
+            <div class="auth-title">إنشاء حساب جديد</div>
+            <form onsubmit="handleRegister(event)" style="max-height: 50vh; overflow-y: auto; padding-right: 5px;">
+                <div class="auth-form-group">
+                    <label>اسم المدرسة</label>
+                    <input type="text" id="reg-school-name" required placeholder="مثال: مدرسة صبحي ناجي">
+                </div>
+                <div class="auth-form-group">
+                    <label>اسم مدير المدرسة</label>
+                    <input type="text" id="reg-director-name" required placeholder="الاسم الرباعي للمدير">
+                </div>
+                <div class="auth-form-group">
+                    <label>اسم مشرف الامتحانات</label>
+                    <input type="text" id="reg-supervisor-name" required placeholder="الاسم الرباعي لمشرف الامتحانات">
+                </div>
+                <div class="auth-form-group">
+                    <label>اسم مدخل البيانات</label>
+                    <input type="text" id="reg-data-entry-name" required placeholder="الاسم الرباعي لمدخل البيانات">
+                </div>
+                <div class="auth-form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="text" id="reg-phone" required placeholder="091XXXXXXX">
+                </div>
+                <div class="auth-form-group">
+                    <label>نوع المدرسة</label>
+                    <select id="reg-school-type">
+                        <option value="عامة / تعليم أساسي">عامة / تعليم أساسي</option>
+                        <option value="عامة / تعليم ثانوي">عامة / تعليم ثانوي</option>
+                        <option value="عامة / تعليم أساسي وثانوي">عامة / تعليم أساسي وثانوي</option>
+                        <option value="خاصة / تعليم أساسي">خاصة / تعليم أساسي</option>
+                        <option value="خاصة / تعليم ثانوي">خاصة / تعليم ثانوي</option>
+                        <option value="خاصة / تعليم أساسي وثانوي">خاصة / تعليم أساسي وثانوي</option>
+                    </select>
+                </div>
+                <div class="auth-form-group">
+                    <label>البلدية / المنطقة</label>
+                    <input type="text" id="reg-region" required placeholder="البلدية التابع لها">
+                </div>
+                <div class="auth-form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="reg-email" required placeholder="example@gmail.com">
+                </div>
+                <div class="auth-form-group">
+                    <label>اسم المستخدم</label>
+                    <input type="text" id="reg-username" required placeholder="اسم مستخدم فريد للدخول">
+                </div>
+                <div class="auth-form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="reg-password" required placeholder="••••••">
+                </div>
+                <div class="auth-form-group">
+                    <label>تأكيد كلمة المرور</label>
+                    <input type="password" id="reg-password-confirm" required placeholder="••••••">
+                </div>
+                <div class="auth-form-group">
+                    <label>صورة المدرسة / الحساب</label>
+                    <input type="file" id="reg-photo" accept="image/*">
+                </div>
+                <button type="submit" class="btn-auth-submit">إنشاء الحساب</button>
+            </form>
+            <button class="btn-toggle-auth" onclick="toggleAuthScreens('login')">العودة لتسجيل الدخول</button>
+        </div>
+
+    </div>
+
+    <!-- ==================== ثانياً: شاشات المنظومة (مخفية حتى تسجيل الدخول) ==================== -->
+    <div id="main-system-app" style="display: none;">
+        <header class="header-system">
+            <div class="main-nav-row">
+                <div class="nav-brand">
+                    <i class="fas fa-graduation-cap"></i> منظومة صبحي ناجي المتكاملة
+                </div>
+                <div class="nav-menu-grid">
+                    <button class="menu-item" onclick="switchMainView('dash')"><i class="fas fa-chart-line"></i> لوحة التحكم</button>
+                    <button class="menu-item" onclick="switchMainView('add-student')"><i class="fas fa-user-plus"></i> إضافة طالب</button>
+                    <button class="menu-item" onclick="switchMainView('students-list')"><i class="fas fa-users"></i> قائمة الطلاب</button>
+                    <button class="menu-item active" onclick="switchMainView('grades')"><i class="fas fa-calculator"></i> الدرجات</button>
+                    <button class="menu-item"><i class="fas fa-calendar-check"></i> الحضور والغياب</button>
+                    <button class="menu-item"><i class="fas fa-arrow-up"></i> الترحيل</button>
+                    <button class="menu-item"><i class="fas fa-shield-alt"></i> إدارة الامتحانات</button>
+                    <button class="menu-item"><i class="fas fa-calendar-alt"></i> الجداول الدراسية</button>
+                    <button class="menu-item"><i class="fas fa-wallet"></i> المالية</button>
+                </div>
+                <button class="btn-exit" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> خروج آمن</button>
+            </div>
+            <div class="sub-nav-row">
+                <button class="menu-item"><i class="fas fa-poll"></i> النتائج</button>
+                <button class="menu-item"><i class="fas fa-user-friends"></i> بوابة أولياء الأمور</button>
+                <button class="menu-item"><i class="fas fa-comments"></i> الدردشة</button>
+                <button class="menu-item"><i class="fas fa-user-shield"></i> المستخدمون الفرعيون</button>
+                <button class="menu-item" onclick="clearAllData()" style="color: var(--danger-red);"><i class="fas fa-trash-alt"></i> تصفير المنظومة بالكامل</button>
+            </div>
+        </header>
+
+        <div class="app-container">
+
+            <!-- 1. واجهة رصد الدرجات -->
+            <div id="view-grades" class="view-section active-view">
+                <div class="page-title" id="page-main-header">
+                    <i class="fas fa-edit" style="color: var(--accent-blue);"></i> إدخال درجات الطلاب - الصف: الأول
+                </div>
+
+                <div class="grid-dashboard-controls">
+                    <div class="system-card">
+                        <div class="card-title"><i class="fas fa-filter"></i> الفلاتر</div>
+                        <div class="inputs-flex">
+                            <div class="form-box">
+                                <label>اختر الصف:</label>
+                                <select id="filter-class" onchange="onClassChange()">
+                                    <option value="الأول">الأول</option>
+                                    <option value="الثاني ثانوي">الثاني ثانوي</option>
+                                </select>
+                            </div>
+                            <div class="form-box" id="specialty-container" style="display: none;">
+                                <label>التخصص:</label>
+                                <select id="filter-specialty" onchange="renderGradingTable()">
+                                    <option value="علمي">علمي</option>
+                                    <option value="أدبي">أدبي</option>
+                                </select>
+                            </div>
+                            <div class="form-box">
+                                <label>الفصل:</label>
+                                <select id="filter-section" onchange="renderGradingTable()">
+                                    <option value="عرض الكل">عرض الكل</option>
+                                    <option value="أ">أ</option>
+                                    <option value="ب">ب</option>
+                                </select>
+                            </div>
+                            <div class="form-box">
+                                <label>السنة الدراسية:</label>
+                                <select id="filter-year">
+                                    <option value="2025-2026">2025-2026</option>
+                                </select>
+                            </div>
+                            <div class="form-box">
+                                <label>عدد الطلاب:</label>
+                                <select id="filter-limit">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="system-card">
+                        <div class="card-title"><i class="fas fa-eye"></i> التحكم في عرض النتائج للطلاب عبر الرابط</div>
+                        <div class="switch-container">
+                            <button class="switch-btn"><i class="fas fa-cog"></i> إعدادات عرض النتائج للطلبة</button>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 13px; font-weight: bold;" id="toggle-text">الاستعلام عن النتائج مغلق - للصف الأول</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="publish-toggle" onchange="togglePublishState()">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="system-card" style="margin-bottom: 20px;">
+                    <div class="card-title"><i class="fas fa-print"></i> أدوات الطباعة والتقارير</div>
+                    <div class="reports-grid" id="reports-render-area"></div>
+                </div>
+
+                <div class="system-card">
+                    <div class="card-title"><i class="fas fa-table"></i> كشف رصد درجات الطلاب المستهدفين</div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">ت</th>
+                                    <th>اسم الطالب رباعي</th>
+                                    <th style="width: 180px;">درجة أعمال السنة</th>
+                                    <th style="width: 180px;">درجة الامتحان</th>
+                                    <th style="width: 120px;">المجموع الكلي</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grading-tbody"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn-save-system" onclick="saveAllGrades()"><i class="fas fa-save"></i> حفظ وتثبيت كشف الدرجات الحالي</button>
+                </div>
+            </div>
+
+            <!-- 2. واجهة إضافة طالب -->
+            <div id="view-add-student" class="view-section">
+                <div class="page-title"><i class="fas fa-user-plus"></i> تسجيل طالب جديد بالمنظومة</div>
+                <div class="system-card" style="max-width: 600px; margin: 0 auto;">
+                    <form id="add-student-form" onsubmit="createNewStudent(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="form-box">
+                            <label>اسم الطالب رباعي:</label>
+                            <input type="text" id="st-fullname" required placeholder="مثال: أحمد محمد علي حسن">
+                        </div>
+                        <div class="form-box">
+                            <label>الرقم الوطني:</label>
+                            <input type="number" id="st-national-id" required placeholder="الرقم المكون من 12 خانة">
+                        </div>
+                        <div class="form-box">
+                            <label>الصف الدراسي:</label>
+                            <select id="st-class" onchange="toggleFormSpecialty()">
+                                <option value="الأول">الأول</option>
+                                <option value="الثاني ثانوي">الثاني ثانوي</option>
+                            </select>
+                        </div>
+                        <div class="form-box" id="form-specialty-box" style="display: none;">
+                            <label>التخصص:</label>
+                            <select id="st-specialty">
+                                <option value="علمي">علمي</option>
+                                <option value="أدبي">أدبي</option>
+                            </select>
+                        </div>
+                        <div class="form-box">
+                            <label>الفصل:</label>
+                            <select id="st-section">
+                                <option value="أ">أ</option>
+                                <option value="ب">ب</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-save-system" style="justify-content: center;"><i class="fas fa-plus"></i> قيد وتثبيت الطالب بالمنظومة</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 3. قائمة الطلاب المقيدين -->
+            <div id="view-students-list" class="view-section">
+                <div class="page-title"><i class="fas fa-users"></i> قائمة الطلاب المقيدين حالياً</div>
+                <div class="system-card">
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ت</th>
+                                    <th>اسم الطالب</th>
+                                    <th>الرقم الوطني</th>
+                                    <th>الصف</th>
+                                    <th>التخصص</th>
+                                    <th>الفصل</th>
+                                    <th>إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="list-students-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. لوحة التحكم والإحصاء -->
+            <div id="view-dash" class="view-section">
+                <div class="page-title"><i class="fas fa-chart-pie"></i> نظرة عامة على الإحصائيات</div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div class="system-card" style="flex: 1; min-width: 250px; background: #eff6ff; border-color: #bfdbfe; text-align: center;">
+                        <div style="font-weight: bold; color: #1e3a8a;">إجمالي الطلاب بالمؤسسة</div>
+                        <div id="dash-total-students" style="font-size: 32px; font-weight: 900; margin-top: 10px; color: #1d4ed8;">0</div>
+                    </div>
+                    <div class="system-card" style="flex: 1; min-width: 250px; background: #f0fdf4; border-color: #bbf7d0; text-align: center;">
+                        <div style="font-weight: bold; color: #14532d;">حالة نشر النتيجة</div>
+                        <div id="dash-publish-status" style="font-size: 20px; font-weight: 900; margin-top: 20px; color: #15803d;">مغلقة حالياً</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================== سكريبت المعالجة والتحكم والبوابة الذكية ================== -->
+    <script>
+        // مصفوفات وقواعد بيانات محلية فارغة ومصفّرة للبداية من الصفر
+        let db_students = JSON.parse(localStorage.getItem('sobhi_db_students')) || [];
+        let db_published = JSON.parse(localStorage.getItem('sobhi_db_publish')) || false;
+        let db_user = JSON.parse(localStorage.getItem('sobhi_db_user')) || null;
+
+        window.onload = function() {
+            checkAuthStatus();
+        };
+
+        // التحقق من حالة تسجيل الدخول لعرض الشاشة المناسبة
+        function checkAuthStatus() {
+            if (db_user) {
+                // المستخدم مسجل دخول، اعرض له المنظومة مباشرة
+                document.getElementById('auth-portal').style.display = 'none';
+                document.getElementById('main-system-app').style.display = 'block';
+                onClassChange();
+                updateDashboard();
+            } else {
+                // غير مسجل دخول، اعرض شاشات الدخول والإنشاء
+                document.getElementById('auth-portal').style.display = 'flex';
+                document.getElementById('main-system-app').style.display = 'none';
+                toggleAuthScreens('login');
+            }
+        }
+
+        // التبديل بين شاشتي تسجيل الدخول وإنشاء حساب
+        function toggleAuthScreens(screen) {
+            if (screen === 'login') {
+                document.getElementById('login-card').style.display = 'block';
+                document.getElementById('register-card').style.display = 'none';
+            } else {
+                document.getElementById('login-card').style.display = 'none';
+                document.getElementById('register-card').style.display = 'block';
+            }
+        }
+
+        // معالجة إنشاء حساب جديد وحفظه
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('reg-password').value;
+            const confirmPass = document.getElementById('reg-password-confirm').value;
+
+            if (password !== confirmPass) {
+                alert("❌ خطأ: كلمتا المرور غير متطابقتين!");
+                return;
+            }
+
+            const newUserObj = {
+                schoolName: document.getElementById('reg-school-name').value,
+                director: document.getElementById('reg-director-name').value,
+                supervisor: document.getElementById('reg-supervisor-name').value,
+                dataEntry: document.getElementById('reg-data-entry-name').value,
+                phone: document.getElementById('reg-phone').value,
+                schoolType: document.getElementById('reg-school-type').value,
+                region: document.getElementById('reg-region').value,
+                email: document.getElementById('reg-email').value,
+                username: document.getElementById('reg-username').value.trim(),
+                password: password
+            };
+
+            localStorage.setItem('sobhi_db_user', JSON.stringify(newUserObj));
+            db_user = newUserObj;
+
+            alert("🎉 تم إنشاء حساب منظومة صبحي ناجي وتعيين المنظومة بنجاح! سيتم تحويلك لصفحة تسجيل الدخول.");
+            toggleAuthScreens('login');
+        }
+
+        // معالجة تسجيل الدخول والتحقق من البيانات
+        function handleLogin(e) {
+            e.preventDefault();
+            const userIn = document.getElementById('login-username').value.trim();
+            const passIn = document.getElementById('login-password').value;
+
+            if (!db_user) {
+                alert("❌ لا يوجد حساب مسجل حالياً. يرجى إنشاء حساب جديد أولاً.");
+                return;
+            }
+
+            if (userIn === db_user.username && passIn === db_user.password) {
+                alert(`🔓 مرحباً بك في منظومة صبحي ناجي لمدارس [${db_user.schoolName}]!`);
+                checkAuthStatus();
+            } else {
+                alert("❌ خطأ: اسم المستخدم أو كلمة المرور غير صحيحة!");
+            }
+        }
+
+        // خروج آمن وإعادة القفل
+        function handleLogout() {
+            if (confirm("هل تريد تسجيل الخروج والعودة لصفحة الدخول؟")) {
+                // نسجل الخروج ولكن نحتفظ ببيانات حساب المدير والطلاب
+                document.getElementById('auth-portal').style.display = 'flex';
+                document.getElementById('main-system-app').style.display = 'none';
+                toggleAuthScreens('login');
+            }
+        }
+
+        // تصفير المنظومة كلياً والعودة لنقطة الصفر
+        function clearAllData() {
+            if (confirm("🚨 هل أنت متأكد من رغبتك في تصفير المنظومة بالكامل؟ سيتم مسح حساب المدير، حساب المدخل، وكافة الطلاب والدرجات!")) {
+                localStorage.clear();
+                db_students = [];
+                db_published = false;
+                db_user = null;
+                alert("🗑️ تم تصفير المنظومة وحذف كافة الحسابات بنجاح.");
+                location.reload();
+            }
+        }
+
+        // التبديل بين التبويبات الداخلية للمنظومة
+        function switchMainView(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active-view'));
+            document.querySelectorAll('.menu-item').forEach(btn => btn.classList.remove('active'));
+            
+            const targetView = document.getElementById(`view-${viewId}`);
+            if(targetView) targetView.classList.add('active-view');
+            
+            event.currentTarget.classList.add('active');
+            
+            if (viewId === 'grades') {
+                onClassChange();
+            } else if (viewId === 'students-list') {
+                renderStudentsList();
+            } else if (viewId === 'dash') {
+                updateDashboard();
+            }
+        }
+
+        function updateDashboard() {
+            document.getElementById('dash-total-students').innerText = db_students.length;
+            document.getElementById('dash-publish-status').innerText = db_published ? "مفتوح ونشط للجميع" : "مغلق ومحمي حالياً";
+        }
+
+        function toggleFormSpecialty() {
+            const classVal = document.getElementById('st-class').value;
+            document.getElementById('form-specialty-box').style.display = (classVal === 'الثاني ثانوي') ? 'block' : 'none';
+        }
+
+        function onClassChange() {
+            const classVal = document.getElementById('filter-class').value;
+            document.getElementById('page-main-header').innerHTML = `<i class="fas fa-edit" style="color: var(--accent-blue);"></i> إدخال درجات الطلاب - الصف: ${classVal}`;
+            document.getElementById('specialty-container').style.display = (classVal === 'الثاني ثانوي') ? 'block' : 'none';
+            document.getElementById('toggle-text').innerText = `الاستعلام عن النتائج مغلق - للصف ${classVal}`;
+            
+            buildReportsButtons(classVal);
+            renderGradingTable();
+        }
+
+        function buildReportsButtons(classVal) {
+            const container = document.getElementById('reports-render-area');
+            container.innerHTML = "";
+
+            if (classVal === 'الأول') {
+                const firstClassReports = [
+                    { name: 'صحيفة الفترة الأولى', color: 'color-green', icon: 'fa-print' },
+                    { name: 'كشف المواد الضعيفة - فترة 1', color: 'color-green', icon: 'fa-exclamation-triangle' },
+                    { name: 'صحيفة الفترة الثانية', color: 'color-blue', icon: 'fa-print' },
+                    { name: 'كشف المواد الضعيفة - فترة 2', color: 'color-blue', icon: 'fa-exclamation-triangle' },
+                    { name: 'صحيفة الفترة الثالثة', color: 'color-purple', icon: 'fa-print' },
+                    { name: 'كشف المواد الضعيفة - فترة 3', color: 'color-purple', icon: 'fa-exclamation-triangle' },
+                    { name: 'صحيفة النتيجة النهائية', color: 'color-red', icon: 'fa-print' },
+                    { name: 'عشرة أوائل فترة 1', color: 'color-yellow', icon: 'fa-trophy' },
+                    { name: 'عشرة أوائل فترة 2', color: 'color-yellow', icon: 'fa-trophy' },
+                    { name: 'عشرة أوائل فترة 3', color: 'color-yellow', icon: 'fa-trophy' },
+                    { name: 'العشرة الأوائل النتيجة النهائية', color: 'color-yellow', icon: 'fa-award' },
+                    { name: 'تقرير المراجعة', color: 'color-blue', icon: 'fa-sync-alt' },
+                    { name: 'كشف الناجحين النتيجة النهائية', color: 'color-green', icon: 'fa-check' },
+                    { name: 'كشف المرحلين بمواد ضعيفة', color: 'color-red', icon: 'fa-ban' }
+                ];
+                firstClassReports.forEach(rep => container.appendChild(createButtonDOM(rep)));
+            } else {
+                const secondClassReports = [
+                    { name: 'تصدير Excel', color: 'color-blue', icon: 'fa-file-excel' },
+                    { name: 'صحيفة الفصل الأول', color: 'color-blue', icon: 'fa-print' },
+                    { name: 'كشف العشرة الأوائل الفصل الأول', color: 'color-blue', icon: 'fa-star' },
+                    { name: 'تصدير الفصل الأول Excel', color: 'color-blue', icon: 'fa-file-excel' },
+                    { name: 'صحيفة الفصل الثاني', color: 'color-green', icon: 'fa-print' },
+                    { name: 'صحيفة النتيجة النهائية', color: 'color-red', icon: 'fa-print' },
+                    { name: 'تقرير المراجعة', color: 'color-blue', icon: 'fa-clipboard-list' },
+                    { name: 'كشف الناجحين الدور الاول', color: 'color-green', icon: 'fa-check-circle' },
+                    { name: 'كشف الدور الثاني', color: 'color-red', icon: 'fa-times-circle' },
+                    { name: 'كشف احتياج النجاح التلاميذ الدور الثاني', color: 'color-red', icon: 'fa-exclamation-circle' },
+                    { name: 'تحميل كشف الدور الثاني (Excel)', color: 'color-blue', icon: 'fa-download' },
+                    { name: 'كشف العشرة الأوائل الدور الاول', color: 'color-blue', icon: 'fa-award' },
+                    { name: 'نسبة النجاح العامة الدور الاول', color: 'color-yellow', icon: 'fa-chart-line' },
+                    { name: 'كشف عدد الطلبة الدور الثاني حسب المادة', color: 'color-red', icon: 'fa-exclamation-triangle' }
+                ];
+                secondClassReports.forEach(rep => container.appendChild(createButtonDOM(rep)));
+            }
+        }
+
+        function createButtonDOM(rep) {
+            const btn = document.createElement('button');
+            btn.className = `btn-report ${rep.color}`;
+            btn.innerHTML = `<i class="fas ${rep.icon}"></i> ${rep.name}`;
+            btn.onclick = () => alert(`🖨️ يتم الآن إعداد وتوليد مستند: [${rep.name}] للطباعة...`);
+            return btn;
+        }
+
+        function createNewStudent(e) {
+            e.preventDefault();
+            const classVal = document.getElementById('st-class').value;
+            const newStudent = {
+                id: Date.now(),
+                name: document.getElementById('st-fullname').value,
+                nationalId: document.getElementById('st-national-id').value,
+                classLevel: classVal,
+                specialty: classVal === 'الثاني ثانوي' ? document.getElementById('st-specialty').value : 'لا يوجد',
+                section: document.getElementById('st-section').value,
+                workGrade: null,
+                examGrade: null
+            };
+
+            db_students.push(newStudent);
+            localStorage.setItem('sobhi_db_students', JSON.stringify(db_students));
+            
+            document.getElementById('add-student-form').reset();
+            toggleFormSpecialty();
+            alert("✅ تم قيد الطالب بنجاح!");
+            updateDashboard();
+        }
+
+        function renderStudentsList() {
+            const tbody = document.getElementById('list-students-tbody');
+            tbody.innerHTML = "";
+
+            if (db_students.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="empty-state">المنظومة خالية. الرجاء قيد طالب جديد أولاً لتظهر بياناته هنا.</td></tr>`;
+                return;
+            }
+
+            db_students.forEach((st, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td style="font-weight: bold; color: var(--primary-blue);">${st.name}</td>
+                    <td>${st.nationalId}</td>
+                    <td>${st.classLevel}</td>
+                    <td>${st.specialty}</td>
+                    <td>${st.section}</td>
+                    <td><button onclick="deleteStudent(${st.id})" style="background: var(--danger-red); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;"><i class="fas fa-trash-alt"></i> حذف</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteStudent(id) {
+            if (confirm("هل تريد حذف هذا الطالب وسجل درجاته بالكامل؟")) {
+                db_students = db_students.filter(s => s.id !== id);
+                localStorage.setItem('sobhi_db_students', JSON.stringify(db_students));
+                renderStudentsList();
+                updateDashboard();
+            }
+        }
+
+        function renderGradingTable() {
+            const targetClass = document.getElementById('filter-class').value;
+            const targetSection = document.getElementById('filter-section').value;
+            const targetSpecialty = document.getElementById('filter-specialty').value;
+            const tbody = document.getElementById('grading-tbody');
+            
+            tbody.innerHTML = "";
+
+            const filtered = db_students.filter(st => {
+                const matchClass = (st.classLevel === targetClass);
+                const matchSec = (targetSection === "عرض الكل" || st.section === targetSection);
+                const matchSpec = (targetClass !== 'الثاني ثانوي' || st.specialty === targetSpecialty);
+                return matchClass && matchSec && matchSpec;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">لا يوجد طلاب مسجلين تحت هذا القسم حالياً. أضف طلاباً لترصد درجاتهم.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach((st, idx) => {
+                const workVal = st.workGrade !== null ? st.workGrade : "";
+                const examVal = st.examGrade !== null ? st.examGrade : "";
+                const total = (st.workGrade || 0) + (st.examGrade || 0);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td style="font-weight: bold;">${st.name}</td>
+                    <td><input type="number" class="num-input" min="0" max="40" data-id="${st.id}" data-type="work" value="${workVal}" oninput="calculateRowTotal(this)"></td>
+                    <td><input type="number" class="num-input" min="0" max="60" data-id="${st.id}" data-type="exam" value="${examVal}" oninput="calculateRowTotal(this)"></td>
+                    <td class="total-td" style="font-weight: 900; color: var(--accent-blue);">${workVal !== "" || examVal !== "" ? total : 0}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function calculateRowTotal(input) {
+            const tr = input.closest('tr');
+            const w = parseFloat(tr.querySelector('[data-type="work"]').value) || 0;
+            const e = parseFloat(tr.querySelector('[data-type="exam"]').value) || 0;
+            tr.querySelector('.total-td').innerText = w + e;
+        }
+
+        function saveAllGrades() {
+            const inputs = document.querySelectorAll('#grading-tbody .num-input');
+            if (inputs.length === 0) return;
+
+            inputs.forEach(input => {
+                const id = parseInt(input.getAttribute('data-id'));
+                const type = input.getAttribute('data-type');
+                const val = input.value !== "" ? parseFloat(input.value) : null;
+                
+                const student = db_students.find(s => s.id === id);
+                if (student) {
+                    if (type === 'work') student.workGrade = val;
+                    if (type === 'exam') student.examGrade = val;
+                }
+            });
+
+            localStorage.setItem('sobhi_db_students', JSON.stringify(db_students));
+            alert("💾 تم حفظ وتثبيت الدرجات بنجاح في قاعدة البيانات!");
+            updateDashboard();
+        }
+
+        function togglePublishState() {
+            db_published = document.getElementById('publish-toggle').checked;
+            localStorage.setItem('sobhi_db_publish', JSON.stringify(db_published));
+            updateDashboard();
+        }
+    </script>
+</body>
+</html>
